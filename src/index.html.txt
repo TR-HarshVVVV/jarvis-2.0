@@ -16,19 +16,20 @@
     <div id="response"></div>
     
     <script>
-        document.getElementById('chatForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const userInput = document.getElementById('userInput').value;
-            const response = await fetch('/chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ input: userInput })
-            });
-            const data = await response.json();
-            document.getElementById('response').innerText = data;
+    document.getElementById('chatForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const userInput = document.getElementById('userInput').value;
+        const response = await fetch('/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ input: userInput })
         });
-    </script>
+        const data = await response.json();
+        document.getElementById('response').innerText = data;
+    });
+</script>
+
 </body>
 </html>
