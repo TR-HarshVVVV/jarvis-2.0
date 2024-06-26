@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jarvis 2.0</title>
+    <title>Jarvis 2.0 AI Copilot</title>
 </head>
 <body>
     <h1>Jarvis 2.0 AI Copilot</h1>
     <form id="chatForm">
-        <input type="text" id="userInput" placeholder="Enter your name...">
+        <input type="text" id="userName" placeholder="Enter your name...">
         <button type="submit">Submit</button>
     </form>
     <div id="response"></div>
@@ -16,24 +16,21 @@
     <script>
     document.getElementById('chatForm').addEventListener('submit', async (e) => {
         e.preventDefault();
-        const userInput = document.getElementById('userInput').value;
+        const userName = document.getElementById('userName').value;
         const response = await fetch('/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ input: userInput })
+            body: JSON.stringify({ name: userName })
         });
-        if(response.ok) {
-            const data = await response.json();
-            document.getElementById('response').innerText = data.response;
-        } else {
-            document.getElementById('response').innerText = `Error: ${response.status}`;
-        }
+        const data = await response.json();
+        document.getElementById('response').innerText = data.response;
     });
     </script>
 </body>
 </html>
+
 
 
 
