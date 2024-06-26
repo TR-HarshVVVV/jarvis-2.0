@@ -11,14 +11,17 @@ def index():
 
 @app.route('/chat', methods=['POST'])
 def chat():
-    user_input = request.json.get('input')
+    user_input = request.json.get('input')  # Extract user input from JSON
     response = requests.post(AZURE_PROXY_URL, json={"input": user_input})
-    response_text = response.json().get('response', 'No response from AI')
 
-    return jsonify(response_text)
+    try:
+        response_data = response.json()  # Attempt to parse JSON response from Azure Proxy
+        response_text = response_data.get('response', 'No response from AI')
+    except ValueError as e:
+        response_text = f"Error parsing JSON response from Azure Proxy: {str(e)}"
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    return jsonify({'response': response_text})  # Return JSON response to frontend
+
 
 
 
